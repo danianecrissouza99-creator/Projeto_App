@@ -60,3 +60,28 @@ class ArtigoDetalhado {
     required this.quantidade,
   });
 }
+
+class Conta {
+  final List<Participante> participantes;
+  final List<Artigo> artigos;
+
+  Conta({
+    required this.participantes,
+    required this.artigos,
+  });
+
+  Conta copyWith({
+    List<Participante>? participantes,
+    List<Artigo>? artigos,
+  }) {
+    return Conta(
+      participantes: participantes ?? this.participantes,
+      artigos: artigos ?? this.artigos,
+    );
+  }
+
+  bool get isValid =>
+      participantes.length >= 2 &&
+      artigos.isNotEmpty &&
+      artigos.every((a) => a.preco > 0 && a.quantidade > 0);
+}
