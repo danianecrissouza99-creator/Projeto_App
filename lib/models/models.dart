@@ -48,3 +48,15 @@ class Artigo {
 
   double get totalPrice => preco * quantidade;
 }
+
+class ArtigoDetalhado {
+  final String nome;
+  final double valor;
+  final double quantidade;
+
+  ArtigoDetalhado({
+    required this.nome,
+    required this.valor,
+    required this.quantidade,
+  });
+}
