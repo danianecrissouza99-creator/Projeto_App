@@ -84,4 +84,75 @@ class Conta {
       participantes.length >= 2 &&
       artigos.isNotEmpty &&
       artigos.every((a) => a.preco > 0 && a.quantidade > 0);
+
+  Map<String, double> calcularTotalPorParticipante() {
+    final totaisPorParticipante = <String, double>{};
+
+    for (final participante in participantes) {
+      totaisPorParticipante[participante.id] = 0.0;
+    }
+
+    for (final artigo in artigos) {
+      if (artigo.participantePorcentagem.isEmpty) {
+        // Dividir igualmente entre todos os participantes
+        final valorPorPessoa = artigo.totalPrice / participantes.length;
+        for (final participante in participantes) {
+          totaisPorParticipante[participante.id] =
+              (totaisPorParticipante[participante.id] ?? 0) + valorPorPessoa;
+        }
+      } else {
+        // Dividir de acordo com as porcentagens
+        for (final entry in artigo.participantePorcentagem.entries) {
+          final participanteId = entry.key;
+          final porcentagem = entry.value;
+          totaisPorParticipante[participanteId] =
+              (totaisPorParticipante[participanteId] ?? 0) +
+                  (artigo.totalPrice * porcentagem / 100);
+        }
+      }
+    }
+
+    return totaisPorParticipante;
+  }
+
+  Map<String, List<ArtigoDetalhado>> obterArtigosPorParticipante() {
+    final artigosPorParticipante = <String, List<ArtigoDetalhado>>{};
+
+    for (final participante in participantes) {
+      artigosPorParticipante[participante.id] = [];
+    }
+
+    for (final artigo in artigos) {
+      if (artigo.participantePorcentagem.isEmpty) {
+        // Dividir igualmente
+        final valorPorPessoa = artigo.totalPrice / participantes.length;
+        for (final participante in participantes) {
+          artigosPorParticipante[participante.id]?.add(
+            ArtigoDetalhado(
+              nome: artigo.nome,
+              valor: valorPorPessoa,
+              quantidade: 1 / participantes.length,
+            ),
+          );
+        }
+      } else {
+        // Dividir de acordo com as porcentagens
+        for (final entry in artigo.participantePorcentagem.entries) {
+          final participanteId = entry.key;
+          final porcentagem = entry.value;
+          if (porcentagem > 0) {
+            artigosPorParticipante[participanteId]?.add(
+              ArtigoDetalhado(
+                nome: artigo.nome,
+                valor: artigo.totalPrice * porcentagem / 100,
+                quantidade: porcentagem / 100,
+              ),
+            );
+          }
+        }
+      }
+    }
+
+    return artigosPorParticipante;
+  }
 }
