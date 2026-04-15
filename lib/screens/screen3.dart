@@ -5,12 +5,45 @@ import '../providers/app_state.dart';
 import '../widgets/custom_widgets.dart';
 
 class Screen3Summary extends ConsumerWidget {
-  const Screen3Summary({Key? key}) : super(key: key);
+  const Screen3Summary({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final conta = ref.watch(contaProvider);
     final contaNotifier = ref.read(contaProvider.notifier);
+
+    if (conta.participantes.isEmpty || conta.artigos.isEmpty) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Resumo da Conta'),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Nao ha dados suficientes para apresentar o resumo.',
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 12),
+                CustomButton(
+                  label: 'Ir para Inicio',
+                  onPressed: () {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/screen1',
+                      (route) => false,
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
 
     final totaisPorParticipante = conta.calcularTotalPorParticipante();
     final artigosPorParticipante = conta.obterArtigosPorParticipante();
@@ -35,7 +68,7 @@ class Screen3Summary extends ConsumerWidget {
                 total: total,
                 artigos: artigos,
               );
-            }).toList(),
+            }),
             const SizedBox(height: 24),
             _TotalCard(
               total: totaisPorParticipante.values.fold(0, (a, b) => a + b),
@@ -172,7 +205,7 @@ class _ParticipanteDetalhesCard extends StatelessWidget {
                           ],
                         ),
                       );
-                    }).toList(),
+                    }),
                   const Divider(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -237,7 +270,7 @@ class _TotalCard extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'Média por pessoa: €${(total / numParticipantes).toStringAsFixed(2)}',
+              'Media por pessoa: €${(numParticipantes > 0 ? total / numParticipantes : 0).toStringAsFixed(2)}',
               style: const TextStyle(
                 color: Colors.white70,
                 fontSize: 14,

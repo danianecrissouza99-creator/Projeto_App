@@ -5,7 +5,7 @@ import '../providers/app_state.dart';
 import '../widgets/custom_widgets.dart';
 
 class Screen2AssignItems extends ConsumerWidget {
-  const Screen2AssignItems({Key? key}) : super(key: key);
+  const Screen2AssignItems({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -42,7 +42,7 @@ class Screen2AssignItems extends ConsumerWidget {
                   contaNotifier.atualizarAtribuicaoArtigo(artigo.id, novaAtribuicao);
                 },
               );
-            }).toList(),
+            }),
             const SizedBox(height: 24),
             Row(
               children: [

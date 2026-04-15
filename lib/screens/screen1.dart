@@ -5,7 +5,7 @@ import '../providers/app_state.dart';
 import '../widgets/custom_widgets.dart';
 
 class Screen1ParticipantsItems extends ConsumerWidget {
-  const Screen1ParticipantsItems({Key? key}) : super(key: key);
+  const Screen1ParticipantsItems({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

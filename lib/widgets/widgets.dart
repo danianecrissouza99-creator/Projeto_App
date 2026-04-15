@@ -9,14 +9,14 @@ class CustomTextField extends StatelessWidget {
   final int maxLines;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.label,
     required this.hint,
     required this.controller,
     this.validator,
     this.keyboardType = TextInputType.text,
     this.maxLines = 1,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +52,13 @@ class CustomButton extends StatelessWidget {
   final double width;
 
   const CustomButton({
-    Key? key,
+    super.key,
     required this.label,
     required this.onPressed,
     this.isOutlined = false,
     this.backgroundColor,
     this.width = double.infinity,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -99,10 +99,10 @@ class ParticipanteCard extends StatelessWidget {
   final VoidCallback onDelete;
 
   const ParticipanteCard({
-    Key? key,
+    super.key,
     required this.nome,
     required this.onDelete,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -128,13 +128,13 @@ class ArtigoCard extends StatelessWidget {
   final VoidCallback onDelete;
 
   const ArtigoCard({
-    Key? key,
+    super.key,
     required this.nome,
     required this.preco,
     required this.quantidade,
     required this.total,
     required this.onDelete,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -157,9 +157,9 @@ class SectionTitle extends StatelessWidget {
   final String title;
 
   const SectionTitle({
-    Key? key,
+    super.key,
     required this.title,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -182,10 +182,10 @@ class EmptyStateWidget extends StatelessWidget {
   final IconData icon;
 
   const EmptyStateWidget({
-    Key? key,
+    super.key,
     required this.message,
     required this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

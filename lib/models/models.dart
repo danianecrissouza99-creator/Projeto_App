@@ -88,6 +88,10 @@ class Conta {
   Map<String, double> calcularTotalPorParticipante() {
     final totaisPorParticipante = <String, double>{};
 
+    if (participantes.isEmpty) {
+      return totaisPorParticipante;
+    }
+
     for (final participante in participantes) {
       totaisPorParticipante[participante.id] = 0.0;
     }
@@ -117,6 +121,10 @@ class Conta {
 
   Map<String, List<ArtigoDetalhado>> obterArtigosPorParticipante() {
     final artigosPorParticipante = <String, List<ArtigoDetalhado>>{};
+
+    if (participantes.isEmpty) {
+      return artigosPorParticipante;
+    }
 
     for (final participante in participantes) {
       artigosPorParticipante[participante.id] = [];
